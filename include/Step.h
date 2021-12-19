@@ -12,7 +12,9 @@ class Step
 
   ~Step(void);
 
-  u8 getStep(void);
+  u8 getStepCount(void);
+
+  std::vector<std::string> getSampleFiles(void);
 
   void addSample(std::string file);
   
@@ -26,7 +28,7 @@ class Step
 
   bool enabled;
 
-  u8 step;
+  u8 step_count;
 
 };
 

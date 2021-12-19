@@ -1,6 +1,7 @@
 #pragma once
 
-#include <common.h>
+#include "StepSequencer.h"
+#include "common.h"
 #include <chrono>
 #include <thread>
 #include <iostream>
@@ -27,17 +28,19 @@ class DrumMachine
 
   int getTempo(void);
 
-  void addSampleToStep(std::string file, int step);
+  void addSampleToStep(std::string file, u8 step);
 
   bool loadSample(std::string file);
   
   private:
-
+  
+  StepSequencer *step_sequencer;
+  
   bool running;
   
   int timer = 0;
 
-  int tempo = 110;
+  int tempo;
   
   u8 beat_count;
 

@@ -3,6 +3,7 @@
 #include "Step.h"
 #include <string>
 #include <vector>
+#include <iostream>
 
 class StepSequencer
 {
@@ -12,13 +13,15 @@ class StepSequencer
 
   ~StepSequencer(void);
 
-  add()
+  void setStep(std::string sample, u8 step_count);
+
+  Step getStep(u8 index);
 
   private:
 
   std::vector<StepSequencer> subsequencers;
 
-  std::vector<Step> steps;
+  std::vector<Step*> steps;
 
 };
 

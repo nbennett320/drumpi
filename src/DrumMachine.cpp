@@ -2,8 +2,14 @@
 
 DrumMachine::DrumMachine() 
 {
+  this->tempo = 110;
   this->running = 1;
   this->timer = 0;
+  this->time_signature = std::tuple<u8, u8>(4, 4);
+  u8 numerator = std::get<0>(this->time_signature);
+  std::cout << "num: " << (int)numerator << std::endl;
+
+  this->step_sequencer = new StepSequencer(numerator);
    
   SDL_Init(SDL_INIT_AUDIO);
 
@@ -35,8 +41,15 @@ bool DrumMachine::run()
 << ", ellapsed time(ms): " << ellapsed.count() << ", beat_count: " << beat_count << std::endl;
   this->latency = std::abs(bps - ellapsed.count());
   
-   
-	SDL_LoadWAV(std::get<0>(this->step_samples.at(this->beat_count-1)).c_str(), &this->spec, &this->buffer, &this->sound_length);
+  Step step = this->step_sequencer->getStep(this->beat_count-1);
+  auto files = step.getSampleFiles();
+  for(u8 i = 0; i < files.size(); i++)
+  {
+    std::string file = files[i];
+    SDL_LoadWAV(file.c_str(), &this->spec, &this->buffer, &this->sound_length);
+
+  };
+
 
   int success = SDL_QueueAudio(this->deviceId, this->buffer, this->sound_length);
 	SDL_PauseAudioDevice(this->deviceId, 0);
@@ -60,7 +73,8 @@ int DrumMachine::getTempo()
   return this->tempo;
 };
 
-void DrumMachine::addSampleToStep(std::string file, int step)
+void DrumMachine::addSampleToStep(std::string file, u8 step)
 {
-  this->step_samples.push_back(std::tuple(file, step));
+  this->step_sequencer->setStep(file, step);
+  // this->step_samples.push_back(std::tuple(file, step));
 };
