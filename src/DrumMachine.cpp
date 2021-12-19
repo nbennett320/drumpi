@@ -36,7 +36,6 @@ bool DrumMachine::run()
   std::cout << "running. t: " << timer << ", ms/beat: " << bps
 << ", ellapsed time(ms): " << ellapsed.count() << ", beat_count: " << beat_count << std::endl;
   this->latency = std::abs(bps - ellapsed.count());
-  this->beat_count = (timer % 4) + 1;
   
    
 	SDL_LoadWAV(std::get<0>(this->step_samples.at(this->beat_count-1)).c_str(), &this->spec, &this->buffer, &this->sound_length);
