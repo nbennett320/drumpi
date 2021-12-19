@@ -4,7 +4,6 @@ DrumMachine::DrumMachine()
 {
   this->running = 1;
   this->timer = 0;
-  this->tempo = 110; 
    
   SDL_Init(SDL_INIT_AUDIO);
 

@@ -7,7 +7,7 @@ int main(int argc, char **argv) {
   dm->addSampleToStep("assets/66-hh-01-or.wav", 1);
   dm->addSampleToStep("assets/66-sd-01.wav", 2);
   dm->addSampleToStep("assets/66-hh-01-or.wav", 3);
-  dm->setTempo(120);
+  dm->setTempo(150);
 
   // dm->addSampleToStep("assets/66-sd-01.wav", 0);
 
