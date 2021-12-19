@@ -9,7 +9,6 @@ DrumMachine::DrumMachine()
 
   deviceId = SDL_OpenAudioDevice(NULL, 0, &this->spec, NULL, 0);
   
-  
 };
 
 DrumMachine::~DrumMachine()
