@@ -6,7 +6,19 @@ DrumMachine::DrumMachine()
   this->timer = 0;
   this->tempo = 110; 
    
+  SDL_Init(SDL_INIT_AUDIO);
+  SDL_AudioSpec wavSpec;
 
+	SDL_LoadWAV("assets/66-hh-01-or.wav", &wavSpec, &this->buffer, &this->sound_length);
+  deviceId = SDL_OpenAudioDevice(NULL, 0, &wavSpec, NULL, 0);
+  
+  
+};
+
+DrumMachine::~DrumMachine()
+{
+  SDL_FreeWAV(this->buffer);
+  SDL_Quit();
 };
 
 bool DrumMachine::run() 
@@ -25,14 +37,18 @@ bool DrumMachine::run()
   int beat_count = (timer % 4) + 1; 
   std::cout << "running. t: " << timer << ", ms/beat: " << bps
 << ", ellapsed time(ms): " << ellapsed.count() << ", beat_count: " << beat_count << std::endl;
-  this->latency = bps - ellapsed.count();
+  this->latency = std::abs(bps - ellapsed.count());
   this->beat_count = (timer % 4) + 1;
+
+  int success = SDL_QueueAudio(this->deviceId, this->buffer, this->sound_length);
+	SDL_PauseAudioDevice(this->deviceId, 0);
+
+  return this->running;
 };
 
-double getLatency()
+double DrumMachine::getLatency()
 {
   return this->latency;
 };
-
 
 

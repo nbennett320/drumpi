@@ -1,5 +1,5 @@
 CXX = g++
-LIBS = -lstdc++fs
+LIBS = -lstdc++fs -lSDL2
 CXXFLAGS = -g -std=c++2a -I $(INCLUDE)
 BIN = bin
 SOURCE = src
