@@ -6,7 +6,8 @@ SOURCE = src
 INCLUDE = include
 OBJ = \
   DrumMachine.o \
-	Step.o
+	Step.o \
+	StepSequencer.o
 
 LIST = $(addprefix $(BIN)/, $(OBJ))
 VPATH = $(SOURCE)
