@@ -46,6 +46,8 @@ class DrumMachine
 
   std::tuple<u8, u8> time_signature;
 
+  u8 time_signature_ratio;
+
   u8 max_beat_index;
 
   bool loop_mode;
@@ -61,7 +63,7 @@ class DrumMachine
   // u8 ptr and respective len
   std::vector<std::tuple<std::string, int>> step_samples;
   
-
+  
 
 };
 

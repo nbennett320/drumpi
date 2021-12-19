@@ -5,7 +5,8 @@ DrumMachine::DrumMachine()
   this->tempo = 110;
   this->running = 1;
   this->timer = 0;
-  this->time_signature = std::tuple<u8, u8>(4, 4);
+  this->time_signature_ratio = 6;
+  this->time_signature = std::tuple<u8, u8>(8, 4);
   u8 numerator = std::get<0>(this->time_signature);
   std::cout << "num: " << (int)numerator << std::endl;
 
@@ -36,7 +37,7 @@ bool DrumMachine::run()
   auto end = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double, std::milli> ellapsed = end - start;
   timer += 1;
-  this->beat_count = (timer % 4) + 1; 
+  this->beat_count = (timer % this->time_signature_ratio) + 1; 
   std::cout << "running. t: " << timer << ", ms/beat: " << bps
 << ", ellapsed time(ms): " << ellapsed.count() << ", beat_count: " << beat_count << std::endl;
   this->latency = std::abs(bps - ellapsed.count());
