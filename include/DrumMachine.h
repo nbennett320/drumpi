@@ -1,9 +1,13 @@
 #pragma once
 
+#include <common.h>
 #include <chrono>
 #include <thread>
 #include <iostream>
 #include <cmath>
+#include <string>
+#include <vector>
+#include <tuple>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_audio.h>
 
@@ -19,7 +23,13 @@ class DrumMachine
 
   double getLatency(void);
 
-  int tempo = 110;
+  void setTempo(int bpm);
+
+  int getTempo(void);
+
+  void addSampleToStep(std::string file, int step);
+
+  bool loadSample(std::string file);
   
   private:
 
@@ -27,18 +37,29 @@ class DrumMachine
   
   int timer = 0;
 
+  int tempo = 110;
+  
+  u8 beat_count;
 
-  int beat_count;
+  std::tuple<u8, u8> time_signature;
+
+  u8 max_beat_index;
 
   bool loop_mode;
 
   double latency;
 
   SDL_AudioDeviceID deviceId;
+  SDL_AudioSpec spec;
 
-  Uint32 sound_length;
+  u32 sound_length;
+  u8* buffer;
 
-  Uint8 *buffer;
+  // u8 ptr and respective len
+  std::vector<std::tuple<std::string, int>> step_samples;
+  
+
+
 };
 
 
